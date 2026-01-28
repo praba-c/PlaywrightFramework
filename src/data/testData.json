@@ -1,0 +1,58 @@
+{
+    "loginPage": {
+        "valid": {
+            "username": "standard_user",
+            "password": "secret_sauce"
+        },
+        "invalid": {
+            "username": "locked_out_user",
+            "password": "secret_sauce"
+        }
+    },
+    "inventoryPage": {
+        "sortOption": "Price (high to low)",
+        "product": "bike light",
+        "products": [
+            "backpack",
+            "fleece jacket",
+            "bolt t-shirt",
+            "bike light"
+        ],
+        "removeProducts": [
+            "fleece jacket",
+            "bolt t-shirt"
+        ]
+    },
+    "checkoutPage": {
+        "firstName": "Zoro",
+        "lastName": "Roronoa",
+        "zipCode": "123456"
+    },
+    "api": {
+        "post": {
+            "firstname": "Jim",
+            "lastname": "Brown",
+            "totalprice": 111,
+            "depositpaid": true,
+            "bookingdates": {
+                "checkin": "2018-01-01",
+                "checkout": "2019-01-01"
+            },
+            "additionalneeds": "Breakfast"
+        },
+        "put": {
+            "firstname": "James",
+            "lastname": "Brown",
+            "totalprice": 111,
+            "depositpaid": true,
+            "bookingdates": {
+                "checkin": "2018-01-01",
+                "checkout": "2019-01-01"
+            },
+            "additionalneeds": "Breakfast"
+        },
+        "patch": {
+            "lastname": "Black"
+        }
+    }
+}
