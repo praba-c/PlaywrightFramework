@@ -14,14 +14,6 @@ pipeline {
     }
 
     stages {
-        stage('Set JAVA_HOME') {
-            steps {
-                sh '''
-                    export JAVA_HOME=$(dirname $(readlink -f $(which java)))
-                '''
-            }
-        }
-
         stage('Cleanup') {
             steps {
                 cleanWs()
@@ -51,14 +43,6 @@ pipeline {
     }
 
     post {
-        always {
-            echo 'Generating Allure report'
-
-            allure([
-                includeProperties: false,
-                results: [[path: 'allure-results']]
-            ])
-        }
         success {
             echo 'Pipeline Completed Successfully'
         }
