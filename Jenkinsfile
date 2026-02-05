@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'mcr.microsoft.com/playwright:v1.58.0-jammy'
+            args '--user root'
+        }
+    }
     tools {
         nodejs 'NodeJS'
     }
@@ -9,6 +14,14 @@ pipeline {
     }
 
     stages {
+        stage('Set JAVA_HOME') {
+            steps {
+                sh '''
+                    export JAVA_HOME=$(dirname $(readlink -f $(which java)))
+                '''
+            }
+        }
+
         stage('Cleanup') {
             steps {
                 cleanWs()
@@ -29,21 +42,10 @@ pipeline {
             }
         }
 
-        stage('Run tests (Docker)') {
+        stage('Run tests') {
             steps {
                 echo 'Running all tests'
-                sh '''
-                    docker run --rm \
-                    --user root \
-                    -v "$PWD:/work" \
-                    -w /work \
-                    mcr.microsoft.com/playwright:v1.58.o-jammy \
-                    bash -c "
-                        npm ci &&
-                        npx playwright install --with-deps &&
-                        npx playwright test
-                    "
-                '''
+                sh 'npx playwright test'
             }
         }
     }
