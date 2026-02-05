@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'mcr.microsoft.com/playwright:v1.58.0-jammy'
-            args '--user root'
-        }
-    }
+    agent any
     tools {
         nodejs 'NodeJS'
     }
@@ -34,17 +29,21 @@ pipeline {
             }
         }
 
-        stage('Install Playwright Browsers') {
-            steps {
-                echo 'Installing Playwright browsers'
-                sh 'npx playwright install --with-deps'
-            }
-        }
-
-        stage('Run tests') {
+        stage('Run tests (Docker)') {
             steps {
                 echo 'Running all tests'
-                sh 'npx playwright test'
+                sh '''
+                    docker run --rm \
+                    --user root \
+                    -v "$PWD:/work" \
+                    -w /work \
+                    mcr.microsoft.com/playwright:v1.58.o-jammy \
+                    bash -c "
+                        npm ci &&
+                        npx playwright install --with-deps &&
+                        npx playwright test
+                    "
+                '''
             }
         }
     }
