@@ -14,6 +14,12 @@ pipeline {
     }
 
     stages {
+        stage('Cleanup') {
+            steps {
+                cleanWs()
+            }
+        }
+
         stage('Checkout Code') {
             steps {
                 echo 'Checking out code from Git'
