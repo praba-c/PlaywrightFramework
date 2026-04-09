@@ -20,7 +20,7 @@ test.describe('UI', () => {
 
     test('Login with Invalid username', async ({ page }) => {
 
-        await page.goto('https://www.saucedemo.com');
+        await page.goto('https://www.saucedemo.co');
         const loginPage = new LoginPage(page);
         await loginPage.isPageVisible();
         await loginPage.loginExpectFailure(testData.loginPage.invalid.username, testData.loginPage.invalid.password);
