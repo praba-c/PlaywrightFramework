@@ -47,4 +47,4 @@ jobs:
       run: |
         curl -H "Content-Type: application/json" \
         -d '{"text": "Tests Failed!"}' \
-        ${{ secrets.TEAMS_WEBHOOK_URL }}
+        ${{ secrets.SLACK_WEBHOOK_URL }}
