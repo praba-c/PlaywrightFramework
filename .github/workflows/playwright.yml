@@ -41,3 +41,10 @@ jobs:
         name: allure-report
         path: allure-report/
         retention-days: 30
+
+    - name: Notify Teams on Failure
+      if: failure()
+      run: |
+        curl -H "Content-Type: application/json" \
+        -d '{"text": "Tests Failed!"}' \
+        ${{ secrets.TEAMS_WEBHOOK_URL }}
